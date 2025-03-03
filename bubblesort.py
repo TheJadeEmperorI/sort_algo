@@ -47,7 +47,7 @@ def bubble_sort_optimized(array):
 
 
 array = []
-for _ in range(20):
-    array.append(randint(0,30))
+for _ in range(10000):
+    array.append(randint(0,10000))
 
 print(bubble_sort_optimized(array))

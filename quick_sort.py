@@ -80,47 +80,10 @@ def quick_sort_version3(array, g, d):
 
     return array
 
+
 '''
 NOTE : I'm gonna use the version 2 for the optimisations, I find this on the most elegant
 '''
-def quick_sort_optimised(array, g, d):
-    '''
-    In this optimisation, I only sort the shortest vector. 
-
-    -> No need to worry about the pivot now, we won't sort the largest.
-    '''
-
-    #need to replace the if with a while, because we'll try again and again
-    #with the shortest
-    while g < d:
-        i = g
-        j = d
-        mid = (i+j)//2
-        pivot = array[mid]
-        while True:
-            while array[i] < pivot:
-                i = i + 1
-            while array[j] > pivot:
-                j = j - 1
-            if i >= j:
-                break
-            
-            array[i], array[j] = array[j], array[i]
-            i = i + 1
-            j = j - 1
-        
-        #if the right part is smaller
-        if (i-g) < (d-j):
-            quick_sort_optimised(array, g, i -1)
-            g += 1
-
-        #if the left part is smaller
-        else:
-            quick_sort_optimised(array, j+1,d)
-            d -= 1
-
-    return array
-
 '''
 NOTE : quick sort Class optimisation 
 '''
@@ -136,7 +99,7 @@ class QuickSort():
 
 
     def quick_sort_optimised2(self, g, d):
-        while g < d:
+        if g < d:
             i = g
             j = d
             mid = (i+j)//2
@@ -152,19 +115,13 @@ class QuickSort():
                 self.array[i], self.array[j] = self.array[j], self.array[i]
                 i = i + 1
                 j = j - 1
-            
-            if (i-g) < (d-j):
-                self.quick_sort_optimised2(g, i -1)
-                g += 1
-
-            else:
-                self.quick_sort_optimised2(j+1,d)
-                d -= 1
-
+                
+            self.quick_sort_optimised2(g, i-1)
+            self.quick_sort_optimised2(j+1, d)
 
 array = []
-for _ in range(20):
-    array.append(randint(0,30))
+for _ in range(10000):
+    array.append(randint(0,1000))
 
 a = QuickSort(array)
 a.sort()
